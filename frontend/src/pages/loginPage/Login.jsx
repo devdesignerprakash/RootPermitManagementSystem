@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
 const Login = () => {
   return (
     <Container fluid className="login-container vh-200 d-flex align-items-center justify-content-center">
@@ -29,7 +28,6 @@ const Login = () => {
             <div className="d-flex justify-content-between mt-3">
               <a href="#" className="text-primary">
               पासवर्ड बिर्सनुभयो?</a>
-              <a href="#" className="text-primary">एकाउण्ट छैन?</a>
             </div>
           </Form>
         </Col>

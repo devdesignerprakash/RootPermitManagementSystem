@@ -34,7 +34,10 @@ const NavigationBar = () => {
             </NavDropdown.Item>
           </NavDropdown>
           <Nav.Link href="#">
-            Link
+            बाटो ईजाजत
+          </Nav.Link>
+          <Nav.Link href="#">
+            प‌ंजिकरण
           </Nav.Link>
         </Nav>
         <Form className="d-flex">
