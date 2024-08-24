@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const NavigationBar = () => {
   return (
-    <Navbar expand="lg" className="navbar navbar-dark bg-primary">
+    <Navbar expand="lg" className="navbar navbar-dark bg-dark">
     <Container fluid>
       <Navbar.Brand  className="fw-bold"><Link  className="text-decoration-none text-white" to="/">सवारी परीक्षण कार्यालय</Link></Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
@@ -20,39 +20,30 @@ const NavigationBar = () => {
           navbarScroll
         >
           <Nav.Link><Link  className="text-decoration-none text-white" to="/login">गृहपृष्‍ठ</Link></Nav.Link>
-          <Nav.Link href="#action2"></Nav.Link>
+          <Nav.Link ></Nav.Link>
           <NavDropdown title="डाउलोडस्" id="navbarScrollingDropdown">
-            <NavDropdown.Item href="#action3">बाटो इजाजत पत्र नविकरण फारम</NavDropdown.Item>
-            <NavDropdown.Item href="#action4">
+            <NavDropdown.Item >बाटो इजाजत पत्र नविकरण फारम</NavDropdown.Item>
+            <NavDropdown.Item>
             बाटो इजाजत पत्र प्रतिलिपि फारम
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action5">
+            <NavDropdown.Item>
             बाटो परिवर्तन फारम
             </NavDropdown.Item>
-            <NavDropdown.Item href="#action5">
+            <NavDropdown.Item>
             प‌ंजिकरण नविकरण फारम
             </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link href="#">
-            बाटो ईजाजत
+          <Nav.Link>
+          <Link  className="text-decoration-none text-white" to="/rootPermit">बाटो ईजाजत</Link>
           </Nav.Link>
-          <Nav.Link href="#">
-            प‌ंजिकरण
+          <Nav.Link>
+          <Link  className="text-decoration-none text-white" to="/panjikaran">प‌ंजिकरण</Link>
           </Nav.Link>
-          <Nav.Link href="#">
-          स्तर
+          <Nav.Link>
+          <Link  className="text-decoration-none text-white" to="/level">स्तर</Link>
           </Nav.Link>
         </Nav>
-        <Form className="d-flex">
-          <Form.Control
-            type="search"
-            placeholder="खोज्नुहोस्"
-            className="me-2"
-            aria-label="Search"
-          />
-          <Button variant="outline-warning">खोज्नुहोस्</Button>
-        </Form>
       </Navbar.Collapse>
     </Container>
   </Navbar>
