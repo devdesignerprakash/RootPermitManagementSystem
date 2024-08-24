@@ -5,12 +5,13 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Link } from 'react-router-dom';
 
 const NavigationBar = () => {
   return (
     <Navbar expand="lg" className="navbar navbar-dark bg-primary">
     <Container fluid>
-      <Navbar.Brand href="#" className="fw-bold text-blue">सवारी परीक्षण कार्यालय</Navbar.Brand>
+      <Navbar.Brand  className="fw-bold"><Link  className="text-decoration-none text-white" to="/">सवारी परीक्षण कार्यालय</Link></Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
         <Nav
@@ -18,7 +19,7 @@ const NavigationBar = () => {
           style={{ maxHeight: '100px' }}
           navbarScroll
         >
-          <Nav.Link href="#action1">गृहपृष्‍ठ</Nav.Link>
+          <Nav.Link><Link  className="text-decoration-none text-white" to="/login">गृहपृष्‍ठ</Link></Nav.Link>
           <Nav.Link href="#action2"></Nav.Link>
           <NavDropdown title="डाउलोडस्" id="navbarScrollingDropdown">
             <NavDropdown.Item href="#action3">बाटो इजाजत पत्र नविकरण फारम</NavDropdown.Item>
@@ -38,6 +39,9 @@ const NavigationBar = () => {
           </Nav.Link>
           <Nav.Link href="#">
             प‌ंजिकरण
+          </Nav.Link>
+          <Nav.Link href="#">
+          स्तर
           </Nav.Link>
         </Nav>
         <Form className="d-flex">
