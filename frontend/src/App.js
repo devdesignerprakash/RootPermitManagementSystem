@@ -6,11 +6,12 @@ import Home from './pages/homePage/Home';
 import Registration from './pages/registrationPage/Registration';
 import {Route,Routes, useLocation} from 'react-router-dom';
 import LevelPage from './pages/levelPage/LevelPage';
-import RootPermit from './pages/rootPermitPage/RootPermit';
 import VehiclePanjikaran from './pages/panjikaranPage/VehiclePanjikaran';
+import RoutePermit from './pages/routePermitPage/RoutePermit';
+import RenewRoute from './components/RenewRoute';
 function App() {
   const location=useLocation()
-  const showNavbarOnPaths = ['/', '/panjikaran', '/rootPermit', '/level'];
+  const showNavbarOnPaths = ['/', '/panjikaran', '/routePermit', '/level'];
   return (
     <>
     {showNavbarOnPaths.includes(location.pathname) && <NavigationBar />}
@@ -20,7 +21,8 @@ function App() {
       <Route exact path="/registration" element={<Registration/>}/>
       <Route exact path="/level" element={<LevelPage/>}/>
       <Route exact path="/panjikaran" element={<VehiclePanjikaran/>}/>
-      <Route exact path="/rootPermit" element={<RootPermit/>}/>
+      <Route exact path="/routePermit" element={<RoutePermit/>}/>
+      <Route exact path="/renewPermit" element={<RenewRoute/>}/>
       </Routes>
     </>
   );

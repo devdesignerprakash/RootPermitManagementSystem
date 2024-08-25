@@ -5,3 +5,14 @@
   height: 1px;
   background: #eee;
 }
+.table-header-sticky th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+}
+
+.table-header-sticky th,
+.table td {
+  white-space: nowrap;
+}

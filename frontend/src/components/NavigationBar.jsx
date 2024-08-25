@@ -35,7 +35,7 @@ const NavigationBar = () => {
             </NavDropdown.Item>
           </NavDropdown>
           <Nav.Link>
-          <Link  className="text-decoration-none text-white" to="/rootPermit">बाटो ईजाजत</Link>
+          <Link  className="text-decoration-none text-white" to="/routePermit">बाटो ईजाजत</Link>
           </Nav.Link>
           <Nav.Link>
           <Link  className="text-decoration-none text-white" to="/panjikaran">प‌ंजिकरण</Link>
