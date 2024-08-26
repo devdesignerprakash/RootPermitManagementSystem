@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Table, Form, InputGroup } from 'react-bootstrap';
 import vehicles from './routPermit.json'; // Import your JSON data
+import { useNavigate } from 'react-router-dom';
 
 const RoutePermit = () => {
   const [searchTerm, setSearchTerm] = useState('');
-
+  const navigate=useNavigate()
+  const handleRenew=(ijajatNumber)=>{
+    navigate(`/renewPermit/${encodeURIComponent(ijajatNumber)}`)
+  }
   // Handler for search input
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -80,7 +84,7 @@ const RoutePermit = () => {
               <td>{vehicle['Jachpass Valide Date']}</td>
               <td>
                 {/* Action Buttons */}
-                <Button variant="success" className="me-2">Renew</Button>
+                <Button variant="success" className="me-2" onClick={(e)=>{handleRenew(vehicle['ijajat No'])}}>Renew</Button>
                 <Button variant="warning" className="me-2">Change</Button>
                 <Button variant="info" className="me-2">Lagat Katta</Button>
                 <Button variant="secondary">bato kharej</Button>
