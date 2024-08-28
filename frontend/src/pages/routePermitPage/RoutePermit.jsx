@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 import { Container, Row, Col, Button, Table, Form, InputGroup } from 'react-bootstrap';
-import vehicles from './routPermit.json'; // Import your JSON data
+// import vehicles from './routPermit.json'; // Import your JSON data
 import { useNavigate } from 'react-router-dom';
+
 
 const RoutePermit = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [vehicles, setVehicles]=useState([])
+  useEffect(()=>{
+    const fetchData= async()=>{
+      try {
+         const response = await axios.get('http://localhost:5000/getAllVehicles');
+        setVehicles(response.data)
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+    fetchData()
+  },[])
+  console.log(vehicles)
   const navigate=useNavigate()
   const handleRenew=(ijajatNumber)=>{
     navigate(`/renewPermit/${encodeURIComponent(ijajatNumber)}`)
@@ -15,12 +31,11 @@ const RoutePermit = () => {
   };
 
   // Filtered vehicles based on search term
-  const filteredVehicles = vehicles.filter(vehicle =>
-    vehicle['Vehicle Number'].toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vehicle['Owner Name'].toLowerCase().includes(searchTerm.toLowerCase()) ||
-    vehicle['Route Detail'].toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredVehicles =vehicles.filter(vehicles =>
+    vehicles['vehicleNumber'].toLowerCase().includes(searchTerm.toLowerCase()) ||
+    vehicles['ownerName'].toLowerCase().includes(searchTerm.toLowerCase()) ||
+    vehicles['routeDetail'].toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   return (
     <Container>
       <h1 className="my-4">बाटो इजाजत पत्र </h1>
@@ -71,17 +86,17 @@ const RoutePermit = () => {
         <tbody>
           {filteredVehicles.map((vehicle, index) => (
             <tr key={index}>
-              <td>{vehicle['Vehicle Number']}</td>
-              <td>{vehicle['Engine No']}</td>
-              <td>{vehicle['Chasis No']}</td>
-              <td>{vehicle['Owner Name']}</td>
-              <td>{vehicle['yatayat Prali name']}</td>
+              <td>{vehicle['vehicleNumber']}</td>
+              <td>{vehicle['engineNo']}</td>
+              <td>{vehicle['chasisNo']}</td>
+              <td>{vehicle['ownerName']}</td>
+              <td>{vehicle['yatayatPraliName']}</td>
               <td>{vehicle['Model']}</td>
               <td>{vehicle['vehicle Type']}</td>
-              <td>{vehicle['Route Detail']}</td>
-              <td>{vehicle['Route Permit Valid Date']}</td>
-              <td>{vehicle['Insurance Valid Date']}</td>
-              <td>{vehicle['Jachpass Valide Date']}</td>
+              <td>{vehicle['routeDetail']}</td>
+              <td>{vehicle['routePermitValid Date']}</td>
+              <td>{vehicle['insuranceValidDate']}</td>
+              <td>{vehicle['jachpassValideDate']}</td>
               <td>
                 {/* Action Buttons */}
                 <Button variant="success" className="me-2" onClick={(e)=>{handleRenew(vehicle['ijajat No'])}}>Renew</Button>

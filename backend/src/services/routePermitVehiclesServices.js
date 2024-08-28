@@ -9,6 +9,17 @@ const createVehicle = async (vehicleData) => {
     throw new Error(error.message);
     }
   };
+
+  const getAllVehicles= async()=>{
+    try {
+      const vehicles= await RouteVehilce.findAll()
+       return vehicles
+  }
+    catch(error){
+      throw new Error(error.message)
+    }
+  }
   module.exports={
-    createVehicle
+    createVehicle,
+    getAllVehicles
   }

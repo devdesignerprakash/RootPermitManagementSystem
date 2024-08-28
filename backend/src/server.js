@@ -2,6 +2,7 @@
 const dotenv= require('dotenv') //importing dotenv
 const express = require('express') //importing express
 const dbconnection =require('./config/db') //importing database
+const cors= require('cors') //importing cors
 const routePermitVehiclesRoutes=require('./routes/routePermitVehiclesroutes')
 async function testDbConnection() {
     try {
@@ -16,7 +17,7 @@ testDbConnection();
 
 //using section
 const app=express() //using express
-
+app.use(cors())
 app.use(express.json()) //using express for json data
 app.use('/',routePermitVehiclesRoutes)
 dotenv.config({path:'./.env'})

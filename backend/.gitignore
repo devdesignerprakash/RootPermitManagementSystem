@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.env
 
 # testing
 /coverage
@@ -12,7 +13,7 @@
 /build
 
 # Ignore environment variables file
-#.env
+
 
 # misc
 .DS_Store
