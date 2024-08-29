@@ -22,7 +22,7 @@ function App() {
       <Route exact path="/level" element={<LevelPage/>}/>
       <Route exact path="/panjikaran" element={<VehiclePanjikaran/>}/>
       <Route exact path="/routePermit" element={<RoutePermit/>}/>
-      <Route  path="/renewPermit/:ijajatNumber" element={<RenewRoute/>}/>
+      <Route  path="/renew/:ijajatNumber" element={<RenewRoute/>}/>
       </Routes>
     </>
   );

@@ -23,7 +23,7 @@ const RoutePermit = () => {
   console.log(vehicles)
   const navigate=useNavigate()
   const handleRenew=(ijajatNumber)=>{
-    navigate(`/renewPermit/${encodeURIComponent(ijajatNumber)}`)
+    navigate(`/renew/${encodeURIComponent(ijajatNumber)}`)
   }
   // Handler for search input
   const handleSearchChange = (event) => {
@@ -99,7 +99,7 @@ const RoutePermit = () => {
               <td>{vehicle['jachpassValideDate']}</td>
               <td>
                 {/* Action Buttons */}
-                <Button variant="success" className="me-2" onClick={(e)=>{handleRenew(vehicle['ijajat No'])}}>Renew</Button>
+                <Button variant="success" className="me-2" onClick={(e)=>{handleRenew(vehicle['ijajatNo'])}}>Renew</Button>
                 <Button variant="warning" className="me-2">Change</Button>
                 <Button variant="info" className="me-2">Lagat Katta</Button>
                 <Button variant="secondary">bato kharej</Button>

@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
-import vehicles from '../pages/routePermitPage/routPermit.json'; // Adjust the path as needed
+import axios from 'axios'
+
 
 const RenewRoute = () => {
   const { ijajatNumber } = useParams();
-  const [formData, setFormData] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
-
-  useEffect(() => {
-    setFormData(vehicles); // Assuming vehicles is an array
-  }, []);
-
-  useEffect(() => {
-    if (ijajatNumber) {
-      // Find the item with the matching ijajat No
-      const itemToEdit = formData.find(item => item['ijajat No'] === ijajatNumber);
-      setSelectedItem(itemToEdit || {}); // Ensure default empty object if no match
+  useEffect(()=>{
+    const fetchData= async()=>{
+      try {
+         const response = await axios.get(`http://localhost:5000/renew/${ijajatNumber}`);
+         console.log(response)
+        setSelectedItem(response.data)
+      }
+      catch(error){
+        console.log(error)
+      }
     }
-  }, [ijajatNumber, formData]);
+    fetchData()
+  },[ijajatNumber])
 
   // Handler for form input changes
   const handleChange = (e) => {
@@ -27,7 +28,7 @@ const RenewRoute = () => {
       ...prev,
       [name]: value
     }));
-  };
+  };                   
 
   // Handler for form submission
   const handleSubmit = (e) => {

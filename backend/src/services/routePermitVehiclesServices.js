@@ -18,8 +18,22 @@ const createVehicle = async (vehicleData) => {
     catch(error){
       throw new Error(error.message)
     }
+  };
+  const getVehicleById= async(id)=>{
+    try{
+      const vehicle = await RouteVehilce.findOne({
+        where: {ijajatNo:id}
+
+      })
+      console.log(vehicle)
+      return vehicle;
+    }
+    catch(error){
+      throw new Error(error.msg)
+    }
   }
   module.exports={
     createVehicle,
-    getAllVehicles
+    getAllVehicles,
+    getVehicleById
   }
