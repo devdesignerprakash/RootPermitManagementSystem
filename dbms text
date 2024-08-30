@@ -1,0 +1,166 @@
+-- Vehicle Table
+
+Create table UserDetails
+(
+Id int primary key identity (1,1),
+Email nvarchar(250) not null,
+ContactNumber nvarchar(50) not null,
+[Password] nvarchar(100) not null, 
+UserType nvarchar(50) Check (UserType in ('Admin','User','SuperUser', 'Guest'))
+)
+
+Create table OfficeEmployee
+(
+Id int primary key identity (1,1),
+EmployeeName nvarchar(250) not null,
+Post nvarchar(250) not null,
+CanApprove bit default (0),
+SanketNumber nvarchar(50),
+)
+
+
+Create table VehicleTypes
+(
+Id int primary key identity(1,1),
+Name nvarchar(100) not null,
+Remarks nvarchar(250)
+)
+
+
+
+Create table YatayatSewa
+(
+Id int primary key identity (1,1),
+YatayatSewaName nvarchar(250) not null unique,
+RegisteredDate Date not null,
+RenewValidDate Date not null,
+RegisteredAt nvarchar(250) not null,
+Address nvarchar(250) not null,
+ContactNo nvarchar(50) not null
+)
+
+
+
+Create table EmployeeDetails
+(
+Id int primary key identity(1,1),
+EmployeeName nvarchar(250) not null,
+EmployeeAddress nvarchar(250) not null,
+EmployeeContact nvarchar(50),
+EmployeeLicenceNumber nvarchar(50) not null,
+EmployeeLicenceIssuer nvarchar(250),
+
+)
+
+
+
+Create table VehicleOwners
+(
+Id int primary key identity (1,1),
+OwnerName nvarchar(250) not null,
+Address nvarchar(250),
+Contact nvarchar(50),
+VehicleManagementPerson nvarchar(250),
+AddressManagementPerson nvarchar(250)
+)
+
+Create table Vehicles
+(
+Id int primary  key identity (1,1),
+Number nvarchar(50) not null,
+RegisteredDate date not null,
+VehicleTypeId int foreign key references VehicleTypes(Id) on delete no action,
+EngineNumber nvarchar(50) not null,
+ChassisNumber nvarchar(50) not null,
+Model nvarchar(50) not null,
+Manufacturer nvarchar(250) not null,
+ManufacutredYear int not null,
+VehicleWeight decimal(18,2),
+WeightCapacity decimal(18,2),
+SeatCapacity int not null,
+Others nvarchar(500),
+VehicleOwnerId int foreign key references VehicleOwners(Id) on delete no action,
+YatayatSewaId int foreign key references YatayatSewa(Id) on delete no action,
+TicketCounterAddress nvarchar(250),
+ParkingAddress nvarchar(250),
+Remarks nvarchar(max),
+Driver int foreign key references EmployeeDetails(Id) on delete no action,
+Helper int foreign key references EmployeeDetails(Id) on delete no action,
+Other int foreign key references EmployeeDetails(Id) on delete no action,
+FuelType nvarchar(15), check (FuelType in ('Petrol', 'Diesel' ,'Electric'))
+)
+
+
+Create Table RouteDetails
+(
+	Id int primary  key identity (1,1),
+	RouteName nvarchar(500),
+	RouteDetail nvarchar(max) not null,
+	RouteFee decimal(18,2) not null default (0),
+	RouteDistance decimal(18,2) not null default (0)
+)
+
+Create Table Permits
+(
+Id int primary key identity(1,1),
+PermitNumber nvarchar(50) not null,
+PermitIssueDate date not null,
+AttachedDocuments nvarchar(max),
+VehicleId int foreign key references Vehicles(Id) on delete no action,
+Others nvarchar(max)
+)
+
+Create table VehicleRouteDetails
+(
+Id int  primary key identity (1,1),
+VehicleId int foreign key references Vehicles(Id) on delete no action,
+
+-- PREVIOUS ROUTE DETAILS NOT MANDATORY
+PreviousRouteDetailsId int foreign key references RouteDetails(Id) on delete no action,
+PreviousPermitNo nvarchar(50),
+PreviousPermitDate date,
+PreviousPermitValidDate date,
+PreviousPermitIssuedBy nvarchar(250),
+TransferDate date,
+
+-- New route details
+NewRouteDetailsId int foreign key references RouteDetails(Id) on delete no action,
+
+-- Fitness Test Details
+FitnessTestDate date not null,
+FitnessTestValidity date not null,
+FitnessTestOffice nvarchar(250) not null,
+
+--Insurance details
+InsuranceIssueDate date not null,
+InsuranceValidDate date not null,
+InsuranceIssuerCompany nvarchar(250) not null,
+InsuranceType nvarchar(100) default ('Full') not null,
+
+-- Applicant details
+ApplicantName nvarchar(250) not null,
+ApplicantAddress nvarchar(250) not null,
+ApplicantContact nvarchar(50),
+
+-- required if applicant is not owner
+IsApplicantOwner bit default 1,
+IsManjuriNamaAttached bit,
+ApplicantCitizenshipNumber nvarchar(50),
+
+
+--Applicability details
+IsPermitApplicable bit default (1),
+InapplicableReason nvarchar(500),
+
+-- Voucher details
+VoucherNumber nvarchar not null,
+VoucherAmount decimal(18,2) not null,
+
+VehicleRouteDate date default GetDate(),
+
+registeredBy int foreign key references UserDetails(Id) on delete no action,
+Approver int foreign key references OfficeEmployee(Id) on delete no action,
+Requester int foreign key references OfficeEmployee(Id) on delete no action
+)
+
+
