@@ -2,23 +2,26 @@ const VehicleType = require('../models/VehicleTypes')
 const VehcileTypeServices = require('../services/VehicleTypeService')
 
 class VehicleTypesControllers{
-    async createVehicleType(req,res){
-        try{
-            const vehicleType= await VehicleType.findOne(req.body.Name)
-            if(!vehicleType){
-                await VehcileTypeServices.createVehcileType(req.body)
+    async createVehicleType(req, res) {
+        try {
+            const vehicleType = await VehicleType.findOne({ where: { Name: req.body.Name } });
+    
+            if (!vehicleType) {
+                await VehcileTypeServices.createVehcileType(req.body);
                 res.status(201).json({
-                    msg:"Vehicle Type Created Successfully"
-                })
+                    msg: "Vehicle Type Created Successfully"
+                });
+            } else {
+                res.status(409).json({
+                    msg: "Vehicle Type already exists"
+                });
             }
-            else{
-                res.json({
-                    msg:"Already have Vehicle Type"
-                })
-            }
-        }
-        catch(error){
-            throw new Error(error)
+        } catch (error) {
+            console.error("Error creating vehicle type:", error);
+            res.status(500).json({
+                msg: "An error occurred",
+                error: error.message
+            });
         }
     }
     async getAllVehicleTypes(req,res) {

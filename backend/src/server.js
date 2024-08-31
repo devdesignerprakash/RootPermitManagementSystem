@@ -7,6 +7,7 @@ const routePermitVehiclesRoutes=require('./routes/routePermitVehiclesRoutes')
 
 const userRoutes=require('./routes/UserDetailsRoutes')
 const officeEmployeeRoutes=require('./routes/OfficeEmployeeRoutes')
+const vehicleTypeRoutes= require('./routes/VehicleTypeRoutes')
 async function testDbConnection() {
     try {
         await dbconnection.authenticate();
@@ -25,6 +26,7 @@ app.use(express.json()) //using express for json data
 app.use('/',routePermitVehiclesRoutes)
 app.use('/',userRoutes)
 app.use('/',officeEmployeeRoutes)
+app.use('/',vehicleTypeRoutes)
 dotenv.config({path:'./.env'})
 console.log(process.env.PORT)
 app.listen(process.env.PORT,()=>{
