@@ -8,7 +8,5 @@ const router=express.Router()
 router.post('/routePermit', vehicleController.createVehicle)
 router.get('/getAllVehicles',vehicleController.getAllVehicles)
 router.get(`/renew/:ijajat`, vehicleController.getVehicleById)
-
-
 module.exports = router;
 

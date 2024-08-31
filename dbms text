@@ -78,7 +78,6 @@ ManufacutredYear int not null,
 VehicleWeight decimal(18,2),
 WeightCapacity decimal(18,2),
 SeatCapacity int not null,
-Others nvarchar(500),
 VehicleOwnerId int foreign key references VehicleOwners(Id) on delete no action,
 YatayatSewaId int foreign key references YatayatSewa(Id) on delete no action,
 TicketCounterAddress nvarchar(250),
@@ -88,6 +87,7 @@ Driver int foreign key references EmployeeDetails(Id) on delete no action,
 Helper int foreign key references EmployeeDetails(Id) on delete no action,
 Other int foreign key references EmployeeDetails(Id) on delete no action,
 FuelType nvarchar(15), check (FuelType in ('Petrol', 'Diesel' ,'Electric'))
+Others nvarchar(500),
 )
 
 

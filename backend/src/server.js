@@ -3,7 +3,10 @@ const dotenv= require('dotenv') //importing dotenv
 const express = require('express') //importing express
 const dbconnection =require('./config/db') //importing database
 const cors= require('cors') //importing cors
-const routePermitVehiclesRoutes=require('./routes/routePermitVehiclesroutes')
+const routePermitVehiclesRoutes=require('./routes/routePermitVehiclesRoutes')
+
+const userRoutes=require('./routes/UserDetailsRoutes')
+const officeEmployeeRoutes=require('./routes/OfficeEmployeeRoutes')
 async function testDbConnection() {
     try {
         await dbconnection.authenticate();
@@ -20,6 +23,8 @@ const app=express() //using express
 app.use(cors())
 app.use(express.json()) //using express for json data
 app.use('/',routePermitVehiclesRoutes)
+app.use('/',userRoutes)
+app.use('/',officeEmployeeRoutes)
 dotenv.config({path:'./.env'})
 console.log(process.env.PORT)
 app.listen(process.env.PORT,()=>{
