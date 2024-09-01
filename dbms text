@@ -86,7 +86,7 @@ Remarks nvarchar(max),
 Driver int foreign key references EmployeeDetails(Id) on delete no action,
 Helper int foreign key references EmployeeDetails(Id) on delete no action,
 Other int foreign key references EmployeeDetails(Id) on delete no action,
-FuelType nvarchar(15), check (FuelType in ('Petrol', 'Diesel' ,'Electric'))
+FuelType nvarchar(15), check (FuelType in ('Petrol', 'Diesel' ,'Electric')),
 Others nvarchar(500),
 )
 
