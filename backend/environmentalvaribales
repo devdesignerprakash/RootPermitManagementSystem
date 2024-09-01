@@ -4,3 +4,4 @@ DB_HOST=localhost
 DB_NAME=RootPermitManagement
 DB_PASSWORD=prakash
 DB_PORT=5432
+

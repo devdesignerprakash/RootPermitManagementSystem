@@ -8,6 +8,7 @@ const routePermitVehiclesRoutes=require('./routes/routePermitVehiclesRoutes')
 const userRoutes=require('./routes/UserDetailsRoutes')
 const officeEmployeeRoutes=require('./routes/OfficeEmployeeRoutes')
 const vehicleTypeRoutes= require('./routes/VehicleTypeRoutes')
+const yatayatSewaRoutes = require('./routes/YatayatSewaRoutes')
 async function testDbConnection() {
     try {
         await dbconnection.authenticate();
@@ -27,8 +28,14 @@ app.use('/',routePermitVehiclesRoutes)
 app.use('/',userRoutes)
 app.use('/',officeEmployeeRoutes)
 app.use('/',vehicleTypeRoutes)
+app.use('/',yatayatSewaRoutes)
 dotenv.config({path:'./.env'})
 console.log(process.env.PORT)
+
+
+
+
+
 app.listen(process.env.PORT,()=>{
     console.log(`app is listening in port ${process.env.PORT || 5000}`)
 })
