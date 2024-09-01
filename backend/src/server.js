@@ -9,6 +9,7 @@ const userRoutes=require('./routes/UserDetailsRoutes')
 const officeEmployeeRoutes=require('./routes/OfficeEmployeeRoutes')
 const vehicleTypeRoutes= require('./routes/VehicleTypeRoutes')
 const yatayatSewaRoutes = require('./routes/YatayatSewaRoutes')
+const vehicleEmployeeRoutes= require('./routes/VehicleEmployeeRoutes')
 async function testDbConnection() {
     try {
         await dbconnection.authenticate();
@@ -29,6 +30,7 @@ app.use('/',userRoutes)
 app.use('/',officeEmployeeRoutes)
 app.use('/',vehicleTypeRoutes)
 app.use('/',yatayatSewaRoutes)
+app.use('/',vehicleEmployeeRoutes)
 dotenv.config({path:'./.env'})
 console.log(process.env.PORT)
 

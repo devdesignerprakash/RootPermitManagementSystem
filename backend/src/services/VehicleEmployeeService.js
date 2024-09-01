@@ -8,8 +8,8 @@ class VehicleEmployeeServices {
     async getAllVehicleEmployee(){
         return await VehicleEmployee.findAll()
     }
-    async getVehicleEmployee(employeeName){
-        return await VehicleEmployee.findOne({where:{EmployeeName:employeeName}})
+    async getVehicleEmployee(EmployeeLicenceNumber){
+        return await VehicleEmployee.findOne({where:{EmployeeLicenceNumber:EmployeeLicenceNumber}})
     }
     async updateVehicleEmployee(vehicleEmployeeData,id){
         return await YatayatSewa.update(vehicleEmployeeData,{where:{Id:id}})

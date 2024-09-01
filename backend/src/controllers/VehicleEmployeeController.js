@@ -3,7 +3,7 @@ const VehicleEmployee = require("../models/VehicleEmployee");
 const VehicleEmployeeServices = require('../services/VehicleEmployeeService')
 
 class VehicleEmployeeControllers {
-  async createYatayatSewa(req, res) {
+  async createVehicleEmployee(req, res) {
     try {
       const vehicleEmployee = await VehicleEmployee.findOne({
         where: {EmployeeLicenceNumber: req.body.EmployeeLicenceNumber},
@@ -24,7 +24,7 @@ class VehicleEmployeeControllers {
   }
   async getAllVehicleEmployee(req, res) {
     try {
-      const AllVehicleEmployee = await VehicleType.findAll();
+      const AllVehicleEmployee = await VehicleEmployee.findAll();
       if (AllVehicleEmployee) {
         const AllVehicleEmployee = await VehicleEmployeeServices.getAllVehicleEmployee()
         res.json(AllVehicleEmployee)
@@ -39,11 +39,12 @@ class VehicleEmployeeControllers {
   }
   async getVehicleEmployee(req, res) {
     try {
+      console.log(req.params)
       const vehicleEmployee = await VehicleEmployee.findOne({
         where: { EmployeeLicenceNumber: req.params.EmployeeLicenceNumber }
       });
       if (vehicleEmployee) {
-        const foundVehicleEmployee= await VehicleEmployeeServices.getVehicleEmployee(req.params.id);
+        const foundVehicleEmployee= await VehicleEmployeeServices.getVehicleEmployee(req.params.EmployeeLicenceNumber);
         res.json(foundVehicleEmployee)
         
       } else {
@@ -59,7 +60,7 @@ class VehicleEmployeeControllers {
     try {
       const vehicleEmployee= await VehicleEmployee.findOne({ where: {EmployeeLicenceNumber: req.params.EmployeeLicenceNumber}});
       if (vehicleEmployee ){
-        await VehicleEmployeeServices.updateVehicleEmployee(req.body,req.params.id);
+        await VehicleEmployeeServices.updateVehicleEmployee(req.body,req.params.EmployeeLicenceNumber);
         res.status(201).json({
           msg: "Employee Updated Successfully",
         });
@@ -74,7 +75,7 @@ class VehicleEmployeeControllers {
   }
   async deleteVehicleEmployee(req, res) {
     try {
-      const vehicleEmployee = await YatayatSewa.findOne({
+      const vehicleEmployee = await VehicleEmployee.findOne({
         where: { EmployeeLicenceNumber: req.params.EmployeeLicenceNumber },
       });
       if (vehicleEmployee) {
