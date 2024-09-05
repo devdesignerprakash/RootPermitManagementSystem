@@ -12,10 +12,10 @@ class VehicleEmployeeServices {
         return await VehicleEmployee.findOne({where:{EmployeeLicenceNumber:EmployeeLicenceNumber}})
     }
     async updateVehicleEmployee(vehicleEmployeeData,id){
-        return await YatayatSewa.update(vehicleEmployeeData,{where:{Id:id}})
+        return await VehicleEmployee.update(vehicleEmployeeData,{where:{EmployeeLicenceNumber:EmployeeLicenceNumber}})
     }
     async deleteVehicleEmployee(id){
-        return await YatayatSewa.destroy({where:{Id:id}})
+        return await VehicleEmployee.destroy({where:{EmployeeLicenceNumber:EmployeeLicenceNumber}})
     }
 }
 

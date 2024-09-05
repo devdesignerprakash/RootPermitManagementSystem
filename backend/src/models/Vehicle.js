@@ -9,7 +9,7 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.INTEGER,
     references: {
       model: "VehicleType",
-      key: id,
+      key: "id",
     },
     onDelete: "NO ACTION",
   },
@@ -25,7 +25,7 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.INTEGER,
     references: {
       model: "VehicleOwner",
-      key: id,
+      key: "id",
     },
     onDelete: "NO ACTION",
   },
@@ -33,7 +33,7 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.INTEGER,
     references: {
       model: "YatayatSewa",
-      key: id,
+      key: "id",
     },
     onDelete: "NO ACTION",
   },
@@ -44,7 +44,7 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.INTEGER,
     references: {
       model: "VehicleEmployee",
-      key: id,
+      key:"id",
     },
     onDelete: "NO ACTION",
   },
@@ -52,7 +52,7 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.INTEGER,
     references: {
       model: "VehicleEmployee",
-      key: id,
+      key: "id",
     },
     onDelete: "NO ACTION",
   },
@@ -60,7 +60,7 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.INTEGER,
     references: {
       model: "VehicleEmployee",
-      key: id,
+      key: "id",
     },
     onDelete: "NO ACTION",
   },
