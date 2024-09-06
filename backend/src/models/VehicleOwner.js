@@ -8,5 +8,8 @@ const VehicleOwner = sequelize.define('VehicleOwner',{
     Contact:{type:DataTypes.STRING(50)},
     VehicleManagementPerson:{type:DataTypes.STRING(250)},
     AddressManagementPerson:{type:DataTypes.STRING(250)}
+},{
+    timestamps: false,
+    tableName: 'VehicleOwner',
 })
 module.exports= VehicleOwner;

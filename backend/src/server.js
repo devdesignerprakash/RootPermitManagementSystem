@@ -2,8 +2,8 @@
 const dotenv= require('dotenv') //importing dotenv
 const express = require('express') //importing express
 const dbconnection =require('./config/db') //importing database
-const cors= require('cors') //importing cors
-
+const cors= require('cors') //importing cors;
+require('./models/Associations');
 
 const userRoutes=require('./routes/UserDetailsRoutes')
 const officeEmployeeRoutes=require('./routes/OfficeEmployeeRoutes')

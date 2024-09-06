@@ -8,5 +8,8 @@ const VehicleEmployee = sequelize.define("VehicleEmployee", {
   EmployeeContact: { type: DataTypes.STRING(250) },
   EmployeeLicenceNumber: { type: DataTypes.STRING(250), allowNull: false },
   EmployeeLicenceIssuer: { type: DataTypes.STRING(250), allowNull: false },
+},{
+  timestamps:false,
+  tableName: "VehicleEmployee",
 });
 module.exports= VehicleEmployee;

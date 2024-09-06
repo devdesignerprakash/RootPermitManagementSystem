@@ -1,5 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
+const VehicleType = require("./VehicleType");
+const VehicleOwner = require("./VehicleOwner");
+const VehicleEmployee = require("./VehicleEmployee");
 
 const Vehicle = sequelize.define("Vehicle", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -8,7 +11,7 @@ const Vehicle = sequelize.define("Vehicle", {
   VehicleTypeId: {
     type: DataTypes.INTEGER,
     references: {
-      model: "VehicleType",
+      model: VehicleType,
       key: "id",
     },
     onDelete: "NO ACTION",
@@ -24,8 +27,8 @@ const Vehicle = sequelize.define("Vehicle", {
   VehicleOwnerId: {
     type: DataTypes.INTEGER,
     references: {
-      model: "VehicleOwner",
-      key: "id",
+      model: VehicleOwner,
+      key: "Id",
     },
     onDelete: "NO ACTION",
   },
@@ -33,7 +36,7 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.INTEGER,
     references: {
       model: "YatayatSewa",
-      key: "id",
+      key: "Id",
     },
     onDelete: "NO ACTION",
   },
@@ -43,24 +46,24 @@ const Vehicle = sequelize.define("Vehicle", {
   Driver: {
     type: DataTypes.INTEGER,
     references: {
-      model: "VehicleEmployee",
-      key:"id",
+      model: VehicleEmployee,
+      key:"Id",
     },
     onDelete: "NO ACTION",
   },
   Helper: {
     type: DataTypes.INTEGER,
     references: {
-      model: "VehicleEmployee",
-      key: "id",
+      model: VehicleEmployee,
+      key: "Id",
     },
     onDelete: "NO ACTION",
   },
   Other: {
     type: DataTypes.INTEGER,
     references: {
-      model: "VehicleEmployee",
-      key: "id",
+      model: VehicleEmployee,
+      key: "Id",
     },
     onDelete: "NO ACTION",
   },
@@ -76,5 +79,8 @@ const Vehicle = sequelize.define("Vehicle", {
 },{
     timestamps:false
 });
+
+
+
 
 module.exports = Vehicle;
