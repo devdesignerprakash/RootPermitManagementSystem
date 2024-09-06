@@ -1,14 +1,14 @@
-
 const YatayatSewa = require("../models/YatayatSewa");
 const YatayatSewaServices = require("../services/YatayatSewaService");
 
 class YatayatSewaControllers {
   async createYatayatSewa(req, res) {
     try {
-        await YatayatSewaServices.createYatayatSewa(req.body);
-        res.status(201).json({
-          msg: "Yatayat Sewa created Successfully",
-        });
+      await YatayatSewaServices.createYatayatSewa(req.body)
+
+      res.status(201).json({
+        msg: "Yatayat Sewa created Successfully",
+      });
     } catch (error) {
       throw new Error(error);
     }
@@ -18,7 +18,7 @@ class YatayatSewaControllers {
       const AllYatayatSewa = await YatayatSewa.findAll();
       if (AllYatayatSewa) {
         const AllYatayat = await YatayatSewaServices.getAllYatayatSewa();
-        res.json(AllYatayat)
+        res.json(AllYatayat);
       } else {
         res.status(404).json({
           msg: "No Data Found",
@@ -31,12 +31,13 @@ class YatayatSewaControllers {
   async getYatayatSewa(req, res) {
     try {
       const yatayatSewa = await YatayatSewa.findOne({
-        where: { Id: req.params.id }
+        where: { Id: req.params.id },
       });
       if (yatayatSewa) {
-        const foundYatayatSewa= await YatayatSewaServices.getYatayatSewa(req.params.id);
-        res.json(foundYatayatSewa)
-        
+        const foundYatayatSewa = await YatayatSewaServices.getYatayatSewa(
+          req.params.id
+        );
+        res.json(foundYatayatSewa);
       } else {
         res.status(409).json({
           msg: "Yatayat Sewa not Exist",
@@ -48,12 +49,14 @@ class YatayatSewaControllers {
   }
   async updateYatayatSewa(req, res) {
     try {
-      const yatayatSewa = await YatayatSewa.findOne({ where: {Id: req.params.id }});
+      const yatayatSewa = await YatayatSewa.findOne({
+        where: { Id: req.params.id },
+      });
       if (yatayatSewa) {
-        await YatayatSewaServices.updateYatayatSewa(req.body,req.params.id);
+        await YatayatSewaServices.updateYatayatSewa(req.body, req.params.id);
         res.status(201).json({
           msg: "Yatayat Sewa Updated Successfully",
-        });
+        });                    
       } else {
         res.status(409).json({
           msg: "No Yatyat Sewa Found",
