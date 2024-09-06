@@ -5,14 +5,14 @@ const VehicleOwner = require("./VehicleOwner");
 const VehicleEmployee = require("./VehicleEmployee");
 
 const Vehicle = sequelize.define("Vehicle", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  Id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   Number: { type: DataTypes.STRING(250), allowNull: false },
   RegistrationDate: { type: DataTypes.DATE, allowNull: false },
   VehicleTypeId: {
     type: DataTypes.INTEGER,
     references: {
       model: VehicleType,
-      key: "id",
+      key: "Id",
     },
     onDelete: "NO ACTION",
   },

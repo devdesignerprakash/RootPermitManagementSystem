@@ -16,7 +16,7 @@ async function testDbConnection() {
     try {
         await dbconnection.authenticate();
         console.log('Connection has been established successfully.');
-   sequelize.sync({ force: false , alter:true}) // Use { alter: true } to update the schema without dropping data
+   sequelize.sync({ force: false,alter:false}) // Use { alter: true } to update the schema without dropping data
     .then(() => {
         console.log('Database & tables created!');
     })

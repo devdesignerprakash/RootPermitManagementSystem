@@ -2,7 +2,7 @@ const {DataTypes}= require('sequelize')
 const sequelize= require('../config/db')
 
 const Permit= sequelize.define('Permit',{
-    id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
+    Id:{type:DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     PermitNumber:{type:DataTypes.STRING(50), allowNull:false},
     PermitIssueDate:{type:DataTypes.DATE, allowNull:false},
     AttachedDocuments:{type:DataTypes.STRING(50)},
