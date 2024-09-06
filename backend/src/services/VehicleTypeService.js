@@ -1,4 +1,4 @@
-const VehicleTypes = require('../models/VehicleTypes')
+const VehicleTypes = require('../models/VehicleType')
 class VehcileTypeServices{
     async createVehcileType(vehicleTypeData){
         return await VehicleTypes.create(vehicleTypeData)

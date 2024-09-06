@@ -1,4 +1,4 @@
-const VehicleType = require('../models/VehicleTypes')
+const VehicleType = require('../models/VehicleType')
 const VehcileTypeServices = require('../services/VehicleTypeService')
 
 class VehicleTypesControllers{

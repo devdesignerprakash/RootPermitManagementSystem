@@ -2,6 +2,7 @@ const Vehicle = require('../models/Vehicle')
 
 class VehicleServices{
     async createVehicle(vehicleData){
+
             await Vehicle.create(vehicleData)
     }
     async getAllVehicles(){

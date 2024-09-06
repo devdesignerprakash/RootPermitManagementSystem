@@ -76,4 +76,5 @@ const Vehicle = sequelize.define("Vehicle", {
 },{
     timestamps:false
 });
+
 module.exports = Vehicle;

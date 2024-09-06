@@ -5,19 +5,10 @@ const YatayatSewaServices = require("../services/YatayatSewaService");
 class YatayatSewaControllers {
   async createYatayatSewa(req, res) {
     try {
-      const yatayatSewa = await YatayatSewa.findOne({
-        where: { YatayatSewaName: req.body.YatayatSewaName },
-      });
-      if (!yatayatSewa) {
         await YatayatSewaServices.createYatayatSewa(req.body);
         res.status(201).json({
           msg: "Yatayat Sewa created Successfully",
         });
-      } else {
-        res.status(409).json({
-          msg: "Yatayat Sewa Already Exist",
-        });
-      }
     } catch (error) {
       throw new Error(error);
     }

@@ -156,8 +156,10 @@ const VehicleRouteDetails = sequelize.define('VehicleRouteDetails', {
       key: 'Id'
     },
     onDelete: 'NO ACTION'
-  }
-}, {
+  },
+
+  //associations
+  
   tableName: 'VehicleRouteDetails',
   timestamps: false
 });
