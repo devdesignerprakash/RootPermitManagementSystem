@@ -77,7 +77,8 @@ const Vehicle = sequelize.define("Vehicle", {
     type: DataTypes.STRING(500),
   },
 },{
-    timestamps:false
+    timestamps:false,
+    tableName:'Vehicle'
 });
 
 

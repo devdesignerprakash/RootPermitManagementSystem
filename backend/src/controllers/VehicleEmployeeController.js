@@ -5,33 +5,26 @@ const VehicleEmployeeServices = require('../services/VehicleEmployeeService')
 class VehicleEmployeeControllers {
   async createVehicleEmployee(req, res) {
     try {
-      const vehicleEmployee = await VehicleEmployee.findOne({
-        where: {EmployeeLicenceNumber: req.body.EmployeeLicenceNumber},
-      });
-      if (!vehicleEmployee) {
-        await VehicleEmployeeServices.createVehicleEmployee(req.body)
-        res.status(201).json({
-          msg: "Employee created Successfully",
-        });
-      } else {
-        res.status(409).json({
-          msg: "Employee Already Exist",
-        });
+      const vehicleEmployee = req.body||req.body.Driver||req.body.Other||req.body.Helper;
+      if(req.existingVehicleEmployee){
+        return res.status(409).send({ message: "Vehicle Employee already exists" });
       }
+      const newVehicleEmployee = await VehicleEmployeeServices.createVehicleEmployee(vehicleEmployee);
+      res.status(201).json(newVehicleEmployee)
     } catch (error) {
       throw new Error(error);
     }
   }
   async getAllVehicleEmployee(req, res) {
     try {
-      const AllVehicleEmployee = await VehicleEmployee.findAll();
-      if (AllVehicleEmployee) {
-        const AllVehicleEmployee = await VehicleEmployeeServices.getAllVehicleEmployee()
-        res.json(AllVehicleEmployee)
-      } else {
+      const allVehicleEmployees = await VehicleEmployeeServices.getAllVehicleEmployee();
+      if (allVehicleEmployees.length===0) { 
         res.status(404).json({
           msg: "No Data Found",
         });
+        
+      } else {
+        res.json(allVehicleEmployees)
       }
     } catch (error) {
       throw new Error(error);

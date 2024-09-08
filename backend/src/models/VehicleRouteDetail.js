@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db'); 
 
-const VehicleRouteDetails = sequelize.define('VehicleRouteDetails', {
+const VehicleRouteDetails = sequelize.define('VehicleRouteDetail', {
   Id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -160,7 +160,7 @@ const VehicleRouteDetails = sequelize.define('VehicleRouteDetails', {
 
   //associations
   
-  tableName: 'VehicleRouteDetails',
+  tableName: 'VehicleRouteDetail',
   timestamps: false
 });
 

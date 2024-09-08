@@ -8,5 +8,5 @@ const VehicleType = sequelize.define('VehicleType', {
 },{
   timestamps:false,
   modelName:'VehicleType'
-});
+},);
 module.exports = VehicleType;

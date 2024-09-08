@@ -11,5 +11,8 @@ const Permit= sequelize.define('Permit',{
         key:"id",
     }, onDelete:"NO ACTION"},
     Others:{type:DataTypes.STRING(this.max)}
+},{
+    timestamps:false,
+    tableName:'Permit'
 })
 module.exports = Permit

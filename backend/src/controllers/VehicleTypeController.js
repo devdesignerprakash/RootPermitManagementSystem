@@ -4,23 +4,15 @@ const VehcileTypeServices = require('../services/VehicleTypeService')
 class VehicleTypesControllers{
     async createVehicleType(req, res) {
         try {
-            const vehicleType = await VehicleType.findOne({ where: { Name: req.body.Name } });
-    
-            if (!vehicleType) {
-                await VehcileTypeServices.createVehcileType(req.body);
-                res.status(201).json({
-                    msg: "Vehicle Type Created Successfully"
-                });
-            } else {
-                res.status(409).json({
-                    msg: "Vehicle Type already exists"
-                });
+            const vehicleTypeData =  req.body.VehicleType||req.body
+            if (req.existingVehicleType) {
+                return res.status(409).json({ message: 'Vehicle Type already exists' })
             }
-        } catch (error) {
-            console.error("Error creating vehicle type:", error);
+               const newVehicleType= await VehcileTypeServices.createVehcileType(vehicleTypeData);
+                res.status(201).json(newVehicleType);
+            } catch (error) {
             res.status(500).json({
-                msg: "An error occurred",
-                error: error.message
+                msg: "Internal Server Error"
             });
         }
     }
