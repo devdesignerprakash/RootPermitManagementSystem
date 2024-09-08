@@ -11,12 +11,13 @@ const vehicleTypeRoutes= require('./routes/VehicleTypeRoutes')
 const yatayatSewaRoutes = require('./routes/YatayatSewaRoutes')
 const vehicleEmployeeRoutes= require('./routes/VehicleEmployeeRoutes')
 const vehicleOwnerRoutes= require('./routes/VehicleOwnerRoutes')
+const vehicleRoutes= require('./routes/VehicleRoutes')
 const sequelize=require('./config/db')
 async function testDbConnection() {
     try {
         await dbconnection.authenticate();
         console.log('Connection has been established successfully.');
-   sequelize.sync({ force:true,alter:true}) // Use { alter: true } to update the schema without dropping data
+   sequelize.sync({ force:false,alter:true}) // Use { alter: true } to update the schema without dropping data
     .then(() => {
         console.log('Database & tables created!');
     })
@@ -41,6 +42,7 @@ app.use('/',vehicleTypeRoutes)
 app.use('/',yatayatSewaRoutes)
 app.use('/',vehicleEmployeeRoutes)
 app.use('/',vehicleOwnerRoutes)
+app.use('/', vehicleRoutes)
 dotenv.config({path:'./.env'})
 console.log(process.env.PORT)
 

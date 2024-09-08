@@ -4,13 +4,17 @@ const YatayatSewaServices = require("../services/YatayatSewaService");
 class YatayatSewaControllers {
   async createYatayatSewa(req, res) {
     try {
-      await YatayatSewaServices.createYatayatSewa(req.body)
+      const yatayatSewaData = req.body.YatayatSewa || req.body;
+      
+      if (req.existingYatayatSewa) {
+        return res.status(409).json({ msg: "Yatayat Sewa already exists" });
+      }
 
-      res.status(201).json({
-        msg: "Yatayat Sewa created Successfully",
-      });
+      const newYatayatSewa = await YatayatSewa.create(yatayatSewaData);
+      res.status(201).json({ msg: "Yatayat Sewa created successfully", data: newYatayatSewa });
     } catch (error) {
-      throw new Error(error);
+      console.error(error);
+      res.status(500).json({ msg: "Internal server error" });
     }
   }
   async getAllYatayatSewa(req, res) {

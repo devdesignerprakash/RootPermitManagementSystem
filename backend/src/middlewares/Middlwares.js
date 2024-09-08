@@ -4,7 +4,6 @@ const Vehicle = require("../models/Vehicle");
 const YatayatSewa = require("../models/YatayatSewa");
 const VehicleType = require("../models/VehicleType");
 const VehicleEmployee = require("../models/VehicleEmployee");
-const { createYatayatSewa } = require("../services/YatayatSewaService");
 
 class Middlewares {
   async checkVehicleExistorNot(req, res, next) {
@@ -33,37 +32,23 @@ class Middlewares {
     }
   }
 
-  async checkAndCreateYatayatSewa(req, res, next) {
+async checkYatayatSewaExistence(req, res, next){
     try {
-      const {
-        YatayatSewaName,
-        RegistrationDate,
-        RenewValidDate,
-        RegisteredAt,
-        Address,
-        ContactNo,
-      } = req.body;
-
-      const existingYatayatSewa = await YatayatSewa.findOne({ where: { YatayatSewaName } });
-      if (existingYatayatSewa) {
-        return res.status(409).json({ msg: "Yatayat Sewa already exists" });
-      } else {
-        await createYatayatSewa({
-          YatayatSewaName,
-          RegistrationDate,
-          RenewValidDate,
-          RegisteredAt,
-          Address,
-          ContactNo,
-        });
-        next();
+      const yatayatSewaName = req.body.YatayatSewaName || req.body.YatayatSewa?.YatayatSewaName;
+      if (!yatayatSewaName) {
+        return next();
       }
+  
+      const yatayatSewa = await YatayatSewa.findOne({ where: { YatayatSewaName: yatayatSewaName } });
+      if (yatayatSewa) {
+        req.existingYatayatSewa = yatayatSewa;
+      }
+      next();
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ msg: "Internal server error" });
+      res.status(500).json({ msg: "Internal server error" });
     }
-  }
-
+};
   async checkOfficeEmployeeExistorNot(req, res, next) {
     try {
       const officeEmployee = await OfficeEmployee.findOne({ where: { SanketNumber: req.body.SanketNumber } });
@@ -92,7 +77,7 @@ class Middlewares {
 
   async checkVehicleEmployeeExistorNot(req, res, next) {
     try {
-      const employee = await VehicleEmployee.findOne({ where: { EmployeeLicenceNumber: req.body.EmployeeLicenceNumber } });
+      const employee = await VehicleEmployee.findOne({ where: { EmployeeLicenceNumber: req.body.Driver.EmployeeLicenceNumber } });
       if (employee) {
         return res.status(409).json({ msg: "Employee is already registered" });
       }
