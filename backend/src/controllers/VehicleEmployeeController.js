@@ -5,7 +5,7 @@ const VehicleEmployeeServices = require('../services/VehicleEmployeeService')
 class VehicleEmployeeControllers {
   async createVehicleEmployee(req, res) {
     try {
-      const vehicleEmployee = req.body||req.body.Driver||req.body.Other||req.body.Helper;
+      const vehicleEmployee = req.body.Driver||req.body.Other||req.body.Helper||req.body;
       if(req.existingVehicleEmployee){
         return res.status(409).send({ message: "Vehicle Employee already exists" });
       }

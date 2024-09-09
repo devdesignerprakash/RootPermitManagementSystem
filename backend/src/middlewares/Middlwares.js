@@ -1,14 +1,16 @@
-const OfficeEmployee = require("../models/OfficeEmployee");
-const UserDetails = require("../models/UserDetails");
+
 const Vehicle = require("../models/Vehicle");
 const YatayatSewa = require("../models/YatayatSewa");
 const VehicleType = require("../models/VehicleType");
 const VehicleEmployee = require("../models/VehicleEmployee");
-
+const VehicleOwner= require("../models/VehicleOwner")
 class Middlewares {
+  // Vehicle Existence Check
   async checkVehicleExistence(req, res, next) {
     try {
-      const vehicle = await Vehicle.findOne({ where: { Number: req.body.Number } });
+      const vehicle = await Vehicle.findOne({
+        where: { Number: req.body.Number },
+      });
       if (vehicle) {
         return res.status(409).json({ msg: "Vehicle Number already exists" });
       }
@@ -18,12 +20,24 @@ class Middlewares {
       return res.status(500).json({ msg: "Internal server error" });
     }
   }
-  async userExistOrNot(req, res, next) {
+
+  // VehicleType Existence and Creation Check
+  async checkVehicleTypeExistence(req, res, next) {
     try {
-      const user = await UserDetails.findOne({ where: { Email: req.body.Email } });
-      if (user) {
-        return res.status(409).json({ msg: "User already exists" });
+      const vehicleTypeName = req.body.VehicleType?.Name ||req.body.Name;
+      if (!vehicleTypeName) {
+        return next();
       }
+
+      let vehicleType = await VehicleType.findOne({
+        where: { Name: vehicleTypeName },
+      });
+
+      if (!vehicleType) {
+        // Create new VehicleType if it doesn't exist
+        vehicleType = await VehicleType.create({ Name: vehicleTypeName });
+      }
+      req.existingVehicleType = vehicleType;
       next();
     } catch (error) {
       console.error(error);
@@ -31,28 +45,23 @@ class Middlewares {
     }
   }
 
-async checkYatayatSewaExistence(req, res, next){
+  // YatayatSewa Existence and Creation Check
+  async checkYatayatSewaExistence(req, res, next) {
     try {
-      const yatayatSewaName = req.body.YatayatSewaName||req.body.YatayatSewa?.YatayatSewaName;
+      const yatayatSewaName = req.body.YatayatSewa?.YatayatSewaName | req.body.YatayatSewaName;
       if (!yatayatSewaName) {
         return next();
       }
-      const yatayatSewa = await YatayatSewa.findOne({ where: { YatayatSewaName: yatayatSewaName } });
-      if (yatayatSewa) {
-        req.existingYatayatSewa = yatayatSewa;
+
+      let yatayatSewa = await YatayatSewa.findOne({
+        where: { YatayatSewaName: yatayatSewaName },
+      });
+
+      if (!yatayatSewa) {
+        // Create new YatayatSewa if it doesn't exist
+        yatayatSewa = await YatayatSewa.create(req.body.YatayatSewa);
       }
-      next();
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ msg: "Internal server error" });
-    }
-};
-  async checkOfficeEmployeeExistorNot(req, res, next) {
-    try {
-      const officeEmployee = await OfficeEmployee.findOne({ where: { SanketNumber: req.body.SanketNumber } });
-      if (officeEmployee) {
-        return res.status(409).json({ msg: "Office Employee already exists" });
-      }
+      req.existingYatayatSewa = yatayatSewa;
       next();
     } catch (error) {
       console.error(error);
@@ -60,48 +69,78 @@ async checkYatayatSewaExistence(req, res, next){
     }
   }
 
-  async checkVehicleTypeExistence(req, res, next) {
+  // VehicleOwner Existence and Creation Check
+  async checkVehicleOwnerExistence(req, res, next) {
     try {
-      console.log(req.body.Name)
-      const vehicleTypeName = req.body.Name||req.body.VehicleType?.Name;
-      if(!vehicleTypeName){
+      const ownerContact = req.body.VehicleOwner?.Contact || req.body.Contact;
+      if (!ownerContact) {
         return next();
       }
-      const vehicleType = await VehicleType.findOne({ where:{Name:vehicleTypeName } });
-      if (vehicleType) {
-        req.existingVehicleType = vehicleType;
+
+      let vehicleOwner = await VehicleOwner.findOne({
+        where: { Contact: ownerContact },
+      });
+
+      if (!vehicleOwner) {
+        // Create new VehicleOwner if it doesn't exist
+        vehicleOwner = await VehicleOwner.create(req.body.VehicleOwner);
       }
+      req.existingVehicleOwner = vehicleOwner;
       next();
     } catch (error) {
+      console.error(error);
       return res.status(500).json({ msg: "Internal server error" });
     }
   }
 
+  // VehicleEmployee Existence and Creation Check
   async checkVehicleEmployeeExistence(req, res, next) {
     try {
-      const Driver = req.body.EmployeeLicenceNumber || req.body.Driver?.EmployeeLicenceNumber;
-      const Helper=req.body.EmployeeLicenceNumber || req.body.Helper?.EmployeeLicenceNumber;
-      const Other= req.body.EmployeeLicenceNumber || req.body.Other?.EmployeeLicenceNumber;
-      if (!Driver && !Helper && !Other) {
+      const DriverLicenceNumber = req.body.Driver?.EmployeeLicenceNumber||req.body.EmployeeLicenceIssuer;
+      const HelperLicenceNumber = req.body.Helper?.EmployeeLicenceNumber||req.body.EmployeeLicenceIssuer;
+      const OtherLicenceNumber = req.body.Other?.EmployeeLicenceNumber||req.body.EmployeeLicenceIssuer;
+
+      if (!DriverLicenceNumber && !HelperLicenceNumber && !OtherLicenceNumber) {
         return next();
       }
-      if (Driver) {
-        const vehicleEmployee = await VehicleEmployee.findOne({ where: { EmployeeLicenceNumber: Driver } });
-        if (vehicleEmployee) {
-          req.existingVehicleEmployeeDriver = vehicleEmployee;
-      }
-      if (Helper) {
-        const helperEmployee = await VehicleEmployee.findOne({ where: { EmployeeLicenceNumber: Helper } });
-        if (helperEmployee) {
-          req.existingVehicleEmployeeHelper = helperEmployee;
+
+      // Driver
+      if (DriverLicenceNumber) {
+        let driver = await VehicleEmployee.findOne({
+          where: { EmployeeLicenceNumber: DriverLicenceNumber },
+        });
+        if (!driver) {
+          // Create new Driver if not found
+          driver = await VehicleEmployee.create(req.body.Driver);
         }
-        if (Other) {
-          const otherEmployee = await VehicleEmployee.findOne({ where: { EmployeeLicenceNumber: Other } });
-          if (otherEmployee) {
-            req.existingVehicleEmployeeOther = otherEmployee;}
-          }}
+        req.existingDriver = driver;
       }
-      next()
+
+      // Helper
+      if (HelperLicenceNumber) {
+        let helper = await VehicleEmployee.findOne({
+          where: { EmployeeLicenceNumber: HelperLicenceNumber },
+        });
+        if (!helper) {
+          // Create new Helper if not found
+          helper = await VehicleEmployee.create(req.body.Helper);
+        }
+        req.existingHelper = helper;
+      }
+
+      // Other
+      if (OtherLicenceNumber) {
+        let other = await VehicleEmployee.findOne({
+          where: { EmployeeLicenceNumber: OtherLicenceNumber },
+        });
+        if (!other) {
+          // Create new Other if not found
+          other = await VehicleEmployee.create(req.body.Other);
+        }
+        req.existingOther = other;
+      }
+
+      next();
     } catch (error) {
       console.error(error);
       return res.status(500).json({ msg: "Internal server error" });

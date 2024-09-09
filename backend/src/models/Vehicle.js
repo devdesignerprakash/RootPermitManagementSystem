@@ -20,7 +20,7 @@ const Vehicle = sequelize.define("Vehicle", {
   ChassisNumber: { type: DataTypes.STRING(50), allowNull: false },
   Model: { type: DataTypes.STRING(50), allowNull: false },
   Manufacturer: { type: DataTypes.STRING(250), allowNull: false },
-  ManufacutredYear: { type: DataTypes.INTEGER, allowNull: false },
+  ManufacturedYear: { type: DataTypes.INTEGER, allowNull: false },
   VehicleWeight: { type: DataTypes.DECIMAL(18, 2) },
   WeightCapacity: { type: DataTypes.DECIMAL(18, 2) },
   SeatCapacity: { type: DataTypes.INTEGER, allowNull: false },

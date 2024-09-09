@@ -11,7 +11,7 @@ const YatayatSewa= sequelize.define('YatayatSewa', {
     Address:{type:DataTypes.STRING(250), allowNull:false },
     ContactNo:{type:DataTypes.STRING(250), allowNull:false }
 },{
-    tableName: 'YatayatSewa', // Ensure this matches your database table name
+    tableName: 'YatayatSewa', 
     timestamps: false
 })
 

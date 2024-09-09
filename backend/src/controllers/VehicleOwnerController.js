@@ -3,19 +3,25 @@ const VehicleOwnerServices = require("../services/VehicleOwnerService");
 class VehicleOwnerControllers {
   async createVehicleOwner(req, res) {
     try {
-      await VehicleOwnerServices.createVehicleOwner(req.body);
+     const Owner=req.body.VehicleOwner||req.body
+      if(req.existingVehicleOwner){
+        return res.status(409).send({ message: "Vehicle Owner already exists" })
+      }
+      const newVehicleOwner=await VehicleOwnerServices.createVehicleOwner(Owner);
       res.status(201).json({
         msg: "Vehicle Owner Created Successfully",
+        data:newVehicleOwner
       });
-    } catch (error) {
-      throw new Error(error);
-    }
+    } 
+    catch (error) {
+      res.status(500).send({ message: "Error creating Vehicle Owner", error: error.message})
+      }
   }
   async getAllVehicleOwner(req, res) {
     try {
       const allOwnerList = await VehicleOwnerServices.getAllVehicleOwner();
       if (allOwnerList.length !== 0) {
-        res.status(201).json(AllOwnerList);
+        res.status(201).json(allOwnerList);
       } else {
         res.status(409).json({
           msg: "No data Found",
