@@ -4,18 +4,22 @@ const UserServices= require('../services/UserServices')
 class UserControllers{
     async createUser(req,res)
     {
-        const newUser = await UserServices.createUser(req.body)
-        if(newUser){
-            res.status(201).json({
-                msg:"User Created Successfully"
-            })
+        try{
+            const user= User.findOne({Email:req.body.Email})
+            if(!user){
+                const newUser = await UserServices.createUser(req.body)
+                res.status(201).json(newUser)
+            }
+            else{
+                res.status(409).json({
+                    msg:"User Already Exist"
+                })
         }
-        else(
-            res.status(500).json({
-                msg:"Internal Server Error"
-            })
-        )
+    }catch(error){
+            throw new Error(error)
+        }
     }
+        
 }
 
 module.exports= new UserControllers()
